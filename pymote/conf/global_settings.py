@@ -11,6 +11,7 @@ from numpy import pi
 
 # **NETWORK*
 ENERGY = 300
+ENERGY_PER_MESSAGE = 5
 
 #: 2-dimensional environment is currently only supported environment.
 ENVIRONMENT = 'Environment2D'
