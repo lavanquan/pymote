@@ -10,6 +10,7 @@ import scipy.stats
 from numpy import pi
 
 # **NETWORK*
+ENERGY = 300
 
 #: 2-dimensional environment is currently only supported environment.
 ENVIRONMENT = 'Environment2D'
