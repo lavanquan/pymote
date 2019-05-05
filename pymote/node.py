@@ -154,8 +154,8 @@ class Node(object):
                                  if hasattr(sensor, 'probabilityFunction') and
                                     sensor.probabilityFunction is not None
                                  else ('', 0)
-                              for sensor in self.compositeSensor.sensors}},
-                '5. energy': self.energy
+                              for sensor in self.compositeSensor.sensors},
+                '5. energy': self.energy}
 
     def box_as_dic(self, box):
         messagebox = self.__getattribute__(box)
