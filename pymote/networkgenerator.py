@@ -12,7 +12,7 @@ from itertools import product
 class NetworkGenerator(object):
 
     def __init__(self, n_count=None, n_min=None, n_max=None, connected=True,
-                 degree=None, comm_range=None, method="random_network",
+                 degree=None, comm_range=None, method="random_network",energy=None,
                  **kwargs):
         """
         Arguments:
@@ -65,6 +65,7 @@ class NetworkGenerator(object):
         self.connected = connected
         self.degree = degree
         self.comm_range = kwargs.pop('commRange', comm_range)
+        self.energy = energy
         #TODO: use subclass based generators instead of method based
         self.generate = self.__getattribute__("generate_" + method)
         self.kwargs = kwargs
@@ -82,7 +83,7 @@ class NetworkGenerator(object):
         if net is None:
             net = Network(**self.kwargs)
             for _n in range(self.n_count):
-                node = Node(commRange=self.comm_range, **self.kwargs)
+                node = Node(commRange=self.comm_range,energy=self.energy **self.kwargs)
                 net.add_node(node)
         else:
             if step>0:
