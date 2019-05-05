@@ -9,7 +9,7 @@ class Node(object):
 
     cid = 1
 
-    def __init__(self, network=None, commRange=None, sensors=None, **kwargs):
+    def __init__(self, network=None, commRange=None, sensors=None, energy=None **kwargs):
         self._compositeSensor = CompositeSensor(self, sensors or
                                                 settings.SENSORS)
         self.network = network
@@ -18,6 +18,7 @@ class Node(object):
         self.__class__.cid += 1
         self._inboxDelay = True
         self.reset()
+        self.energy = energy or setting.ENERGY
 
     def __repr__(self):
         return "<Node id=%s>" % self.id
@@ -50,8 +51,9 @@ class Node(object):
                          (self.id, message.__repr__()))
             m = message.copy()
             m.destination = destination
-            self.outbox.insert(0, m)
-
+            self.outbox.insert(0, m)    
+        self.energy = self.energy - setting.ENERGY_PER_MESSAGE    
+        print self.energy
     def receive(self):
         """
         Pop message from inbox but only if it has been there at least one step.
@@ -69,6 +71,7 @@ class Node(object):
             message = self._inbox.pop()
             logger.debug('Node %d received message %s' %
                          (self.id, message.__repr__()))
+            self.energy = self.energy - setting.ENERGY_PER_MESSAGE
         else:
             message = None
         self._inboxDelay = False
@@ -108,6 +111,14 @@ class Node(object):
         self._commRange = commRange
         if self.network:
             self.network.recalculate_edges([self])
+    
+    @property
+    def energy(self):
+        return self.energy
+    
+    @energy.setter
+    def energy(self, energy):
+        self._energy = energy
 
     def get_log(self):
         """ Special field in memory used to log messages from algorithms. """
@@ -122,10 +133,11 @@ class Node(object):
                    'algorithm': str(self.network.get_current_algorithm()),
                    'algorithmState': self.network.algorithmState,
                    }
+        energy = self.energy
         if not 'log' in self.memory:
-            self.memory['log'] = [(level, message, context)]
+            self.memory['log'] = [(level, message, context, energy)]
         else:
-            self.memory['log'].append((level, message, context))
+            self.memory['log'].append((level, message, context, energy))
 
     def get_dic(self):
         return {'1. info': {'id': self.id,
@@ -142,7 +154,8 @@ class Node(object):
                                  if hasattr(sensor, 'probabilityFunction') and
                                     sensor.probabilityFunction is not None
                                  else ('', 0)
-                              for sensor in self.compositeSensor.sensors}}
+                              for sensor in self.compositeSensor.sensors}},
+                '5. energy': self.energy
 
     def box_as_dic(self, box):
         messagebox = self.__getattribute__(box)
