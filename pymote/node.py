@@ -9,7 +9,7 @@ class Node(object):
 
     cid = 1
 
-    def __init__(self, network=None, commRange=None, sensors=None, energy=None **kwargs):
+    def __init__(self, network=None, commRange=None, sensors=None, energy=None, **kwargs):
         self._compositeSensor = CompositeSensor(self, sensors or
                                                 settings.SENSORS)
         self.network = network
