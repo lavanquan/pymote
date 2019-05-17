@@ -10,14 +10,19 @@ import scipy.stats
 from numpy import pi
 
 # **NETWORK*
-ENERGY = 300
-ENERGY_PER_MESSAGE = 5
+#: Constaint about energy
+E_R = 100*(10**-9)
+E_T = 50*(10**-9)
+E_FS = 10*(10**-12)
+E_MP = 0.0013*(10**-12)
+ENERGY = 20
+B = 2
 
 #: 2-dimensional environment is currently only supported environment.
 ENVIRONMENT = 'Environment2D'
 
 #: default environment dimensions
-ENVIRONMENT2D_SHAPE=(600, 600)
+ENVIRONMENT2D_SHAPE=(1000, 1000)
 
 #: default number of nodes, used in
 #: :class:`pymote.networkgenerator.NetworkGenerator`.
@@ -35,7 +40,7 @@ DEG_ATOL = 1
 # Node
 
 #: Default communication range of nodes.
-COMM_RANGE = 100
+COMM_RANGE = 40
 
 #: By default nodes have one sensor: :class:`pymote.sensor.NeighborsSensor`.
 SENSORS = ('NeighborsSensor',)
