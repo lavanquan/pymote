@@ -18,7 +18,7 @@ class Node(object):
         self.__class__.cid += 1
         self._inboxDelay = True
         self.reset()
-        self.energy = energy or setting.ENERGY
+        self.energy = energy or settings.ENERGY
 
     def __repr__(self):
         return "<Node id=%s>" % self.id
@@ -52,7 +52,7 @@ class Node(object):
             m = message.copy()
             m.destination = destination
             self.outbox.insert(0, m)    
-        self.energy = self.energy - setting.ENERGY_PER_MESSAGE    
+        self.energy = self.energy - settings.ENERGY    
         print self.energy
     def receive(self):
         """
@@ -71,7 +71,7 @@ class Node(object):
             message = self._inbox.pop()
             logger.debug('Node %d received message %s' %
                          (self.id, message.__repr__()))
-            self.energy = self.energy - setting.ENERGY_PER_MESSAGE
+            self.energy = self.energy - settings.ENERGY
         else:
             message = None
         self._inboxDelay = False
