@@ -114,7 +114,7 @@ class Node(object):
     
     @property
     def energy(self):
-        return self.energy
+        return self._energy
     
     @energy.setter
     def energy(self, energy):
