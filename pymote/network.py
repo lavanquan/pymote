@@ -118,7 +118,7 @@ class Network(Graph):
         node.network = None
         logger.debug('Node with id %d is removed.' % node.id)
 
-    def add_node(self, node=None, pos=None, ori=None, commRange=None, energy=None):
+    def add_node(self, node=None, pos=None, ori=None, commRange=None, energy=None, prob=None):
         """
         Add node to network.
 
@@ -129,7 +129,7 @@ class Network(Graph):
 
         """
         if (not node):
-            node = Node(commRange=commRange, energy=energy)
+            node = Node(commRange=commRange, energy=energy, prob=prob)
         assert(isinstance(node, Node))
         if not node.network:
             node.network = self
