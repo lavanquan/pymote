@@ -17,7 +17,7 @@ E_FS = 10*(10**-12)
 E_MP = 0.0013*(10**-12)
 ENERGY = 20
 B = 2
-
+PROB = 5
 #: 2-dimensional environment is currently only supported environment.
 ENVIRONMENT = 'Environment2D'
 
