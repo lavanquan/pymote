@@ -15,7 +15,7 @@ E_R = 100*(10**-9)
 E_T = 50*(10**-9)
 E_FS = 10*(10**-12)
 E_MP = 0.0013*(10**-12)
-ENERGY = 20
+ENERGY = 100
 B = 2
 PROB = 5
 #: 2-dimensional environment is currently only supported environment.
@@ -40,7 +40,7 @@ DEG_ATOL = 1
 # Node
 
 #: Default communication range of nodes.
-COMM_RANGE = 40
+COMM_RANGE = 100
 
 #: By default nodes have one sensor: :class:`pymote.sensor.NeighborsSensor`.
 SENSORS = ('NeighborsSensor',)
