@@ -9,7 +9,7 @@ class Node(object):
 
     cid = 1
 
-    def __init__(self, network=None, commRange=None, sensors=None, energy=None, **kwargs):
+    def __init__(self, network=None, commRange=None, sensors=None, energy=None, prob=None, **kwargs):
         self._compositeSensor = CompositeSensor(self, sensors or
                                                 settings.SENSORS)
         self.network = network
@@ -18,7 +18,8 @@ class Node(object):
         self.__class__.cid += 1
         self._inboxDelay = True
         self.reset()
-        self.energy = energy or settings.ENERGY
+        self._energy = energy or settings.ENERGY
+        self._prob = prob or settings.PROB
 
     def __repr__(self):
         return "<Node id=%s>" % self.id
@@ -119,6 +120,14 @@ class Node(object):
     @energy.setter
     def energy(self, energy):
         self._energy = energy
+        
+    @property
+    def prob(self):
+        return self._prob
+    
+    @prob.setter
+    def prob(self, prob):
+        self._prob = prob
 
     def get_log(self):
         """ Special field in memory used to log messages from algorithms. """
